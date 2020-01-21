@@ -1,0 +1,385 @@
+@import '_mixin';
+@import '_value';
+@import '_function';
+@import '_animation';
+
+#toc {
+    margin-top: 0px;
+    margin-bottom: 30px;
+
+    .toc-nav {
+        position: relative;
+    }
+    
+    .toc-title {
+        @include fontSize($h24);
+        font-weight: 700;
+        color: $fontColor;
+        display: inline;
+        cursor: pointer;
+    }
+
+    .toc-toggle {
+        position: absolute;
+        top: 2px;
+        right: 0;
+        cursor: pointer;
+        @include transition(0.3s);
+
+        @include mediaWidth($screen-sm) {
+            transform: rotate(0);
+        }
+
+        &:before {
+            content: "\f107";
+            display: inline-block;
+            position: relative;
+            font: normal normal normal 25px/25px FontAwesome;
+            color: $primaryColor;
+        }
+
+        &.clicked {
+            transform: rotate(180deg);
+
+            @include mediaWidth($screen-sm) {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    #toc_item {
+        outline: 8px solid $grey-light;
+        outline-offset: -8px;
+        margin-top: 10px;
+        padding: 30px;
+        height: 150px;
+        display: block;
+        overflow: hidden;
+        position: relative;
+        @include transition(0.3s);
+        z-index: 1;
+
+        @include mediaWidth($screen-sm) {
+            height: 100px;
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: -30px;
+            position: absolute;
+            z-index: 2;
+            background: -webkit-gradient(linear, left top, left bottom,
+				from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 1)));
+            background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));            
+            background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            background: -ms-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+        }
+
+        &.open {
+            display: block;
+            height: auto;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        > .item {
+            margin-top: 15px;
+            position: relative;
+            padding-left: 30px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            span {
+                position: absolute;
+                left: 0;
+                top: 0;
+                @include fontSize($h18);
+                cursor: pointer;
+                font-weight: 600;
+            }
+        }
+
+        .title-link {
+            display: inline;
+            @include fontSize($h18);
+            color: $fontColor;
+            @include transition(0.38s);
+            cursor: pointer;
+
+            &:hover {
+                color: $primaryColor;
+
+                span {
+                    color: $primaryColor;
+                }
+            }
+        }
+    }
+}
+
+.tabs {
+    max-width: 100%;
+    padding: 0;
+    @include grey-line(30px, $grey-mid, bottom);
+
+    .tabs-nav {
+        list-style: none;
+        padding: 0;
+        @include displayflex();
+        align-items: flex-end;
+        margin-bottom: 15px;
+        overflow: visible;
+
+        .tabs-link {
+            position: relative;
+            padding: 0 !important;
+            margin: 0 !important;
+            margin-right: 1px !important;
+            @include transition(0.3s);
+            cursor: pointer;
+
+            &:last-of-type {
+                margin-right: 0 !important;
+            }
+
+            &:before {
+                display: none;
+            }
+
+            .tab-item {
+                background: #333333;
+                color: #fff;
+                display: block;
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                @include fontSize($h18);
+
+                @include mediaWidth($screen-sm) {
+                    @include fontSize($h14);
+                    line-height: 1.8rem;
+                    @include displayflex();
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                >div {
+                    width: 100%;
+                    padding: 10px 25px;
+
+                    @include mediaWidth($screen-sm) {
+                        padding: 10px 6px;
+                    }
+                }
+            }
+
+            &.tab-active {
+                margin: 0;
+                .tab-item {
+                    background: #dc1c1c;
+                    cursor: default;
+
+                    >div {
+                        padding-top: 12px;
+                        padding-bottom: 12px;
+    
+                        @include mediaWidth($screen-sm) {
+                            padding-top: 12px;
+                            padding-bottom: 12px;
+                        }
+                    }
+                }
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    bottom: -10px;
+                    left: 50%;
+                    margin-left: -10px;
+                    width: 0px;
+                    height: 0px;
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: 10px solid #dc1c1c;
+                }
+            }
+        }
+        
+    }
+
+    .tabs-stage {
+        clear: both;
+        padding: 0;
+        position: relative;
+        top: -1px;
+
+        >div {
+            display: none;
+
+            /*Tab Content*/
+            ol,ul {
+                li {
+                    padding: 8px 0;
+                    margin: 0 !important;
+                    @include fontSize($h18);
+                    color: $fontColor;
+    
+                    &:nth-child(even) {
+                        background-color: #f8f8f8;
+                    }
+    
+                    a {
+                        color: $fontColor ;
+                    }
+
+                    .olli-content {
+                        top: 12px !important;
+                    }
+                }
+            }
+    
+            p {
+                @include fontSize($h18);
+                color: $fontColor;
+                margin-bottom: 5px;
+            }
+
+        }
+
+        #tab-1 {
+            display: block;
+        }
+    }
+}
+
+#contents {
+    h1, h2, h3, h4 {
+        font-weight: 600;
+        color: $fontColor;
+    }
+
+    h1 {
+        @include fontSize($h26);
+    }
+
+    h2 {
+        @include fontSize($h24);
+    }
+
+    h3 {
+        @include fontSize($h20);
+    }
+
+    p {
+        @include fontSize($h18);
+        color: $fontColor;
+        line-height: 32px;
+
+        a {
+            color: $fontColor;
+            position: relative;
+            display: inline;
+    
+            &:after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 2px;
+                position: absolute;
+                background-color: $primaryColor;
+                left: 0;
+                bottom: 1px;
+            }
+    
+            &:hover {
+                color: $primaryColor;
+                opacity: 0.8;
+
+                &:after {
+                    background-color: $primaryColor;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+
+    blockquote {
+        display: inline-block;
+        background: none repeat scroll 0 0 #f8f8f8;
+        border-color: $primaryColor;
+        border-width: 0 0 0 3px;
+        border-style: solid;
+        line-height: 28px;
+        margin: 7px 0 25px;
+        padding: 18px 25px;
+
+        @include mediaWidth($screen-sm) {
+            width: 100%;
+        }
+    }
+
+    ol, ul {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        list-style: none;
+
+        li {
+            @include fontSize($h18);
+            color: $fontColor;
+            line-height: 32px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+    }
+
+    ol {
+        list-style: none;
+
+        li {
+            padding-left: 40px;
+
+            .olli-content {
+                position: absolute;
+                left: 0;
+                top: 4px;
+                @include fontSize($h24);
+                font-weight: 900;
+                letter-spacing: -1px;
+                line-height: 1;
+                color: $primaryColor;
+                text-align: right;
+            }
+        }
+    }
+
+    ul {
+        li {
+            padding-left: 15px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 10.5px;
+                width: 8px;
+                height: 8px;
+                background: $primaryColor;
+            }
+        }
+    }
+
+    .wp-caption-text {
+        @include fontSize($h12);
+        color: $grey-mid;
+    }
+}

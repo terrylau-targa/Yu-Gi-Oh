@@ -1,0 +1,237 @@
+@media (max-width: 768px) {
+    #main article .single-title, body.archive .page-header .cat-title {
+      font-size: 29px;
+  }}
+
+
+
+
+.post-breadcrumb {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-pack: center;
+-ms-flex-pack: center;
+justify-content: center;
+-ms-flex-line-pack: center;
+align-content: center;
+font-size: 16px;
+font-family: "Heebo", sans-serif; }
+
+.search-section .post-group {
+  padding: 0 10px; }
+.search-section article {
+  border-bottom: 1px solid #ececec;
+  padding-bottom: 15px;
+  margin-bottom: 15px; }
+  .search-section article .post-title {
+    font-size: 1.4rem;
+    font-family: "Heebo", sans-serif;
+    line-height: 1.8rem;
+    overflow: hidden;
+    height: 3.6rem;
+    line-height: 1.8rem;
+    color: #1b1b1b; }
+    .search-section article .post-title:before {
+      content: "";
+      float: left;
+      width: 5px;
+      height: 3.6rem; }
+    .search-section article .post-title > *:first-child {
+      float: right;
+      width: 100%;
+      margin-left: -5px; }
+    .search-section article .post-title:after {
+      content: "...";
+      box-sizing: content-box;
+      -webkit-box-sizing: content-box;
+      -moz-box-sizing: content-box;
+      float: right;
+      position: relative;
+      top: -1.8rem;
+      left: 100%;
+      width: 3rem;
+      margin-left: -3rem;
+      padding-right: 5px;
+      text-align: right;
+      background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(#ffffff), color-stop(50%, #ffffff));
+      background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff);
+      background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff);
+      background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff); }
+    .search-section article .post-title > a {
+      color: #1b1b1b; }
+.search-section .first .thumbnail {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; }
+  .search-section .first .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+.search-section .first .post-title {
+  font-size: 1.8rem;
+  font-family: "Heebo", sans-serif;
+  line-height: 2.2rem;
+  overflow: hidden;
+  height: 4.4rem;
+  line-height: 2.2rem;
+  font-weight: bold; }
+  .search-section .first .post-title:before {
+    content: "";
+    float: left;
+    width: 5px;
+    height: 4.4rem; }
+  .search-section .first .post-title > *:first-child {
+    float: right;
+    width: 100%;
+    margin-left: -5px; }
+  .search-section .first .post-title:after {
+    content: "...";
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    float: right;
+    position: relative;
+    top: -2.2rem;
+    left: 100%;
+    width: 3rem;
+    margin-left: -3rem;
+    padding-right: 5px;
+    text-align: right;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(#ffffff), color-stop(50%, #ffffff));
+    background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff);
+    background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff);
+    background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff 50%, #ffffff); }
+  .search-section .first .post-title > a {
+    font-size: 1.8rem;
+    font-family: "Heebo", sans-serif;
+    line-height: 2.2rem;
+    font-weight: bold; }
+.search-section .first .published {
+  color: #7a7a7a; }
+  .search-section .first .published::before {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background-color: #424040;
+    transform: rotate(45deg);
+    vertical-align: middle;
+    margin: 2px; }
+.search-section .first .category, .search-section .first .published {
+  display: inline-block; }
+
+.search-title {
+  text-align: center;
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  font-size: 38px; }
+  @media (max-width: 767px) {
+    .search-title {
+      text-align: center;
+      font-weight: 400;
+      font-size: 24px; } }
+  @media (max-width: 414px) {
+    .search-title {
+      text-align: center;
+      font-weight: 400;
+      font-size: 16px; } }
+
+@media (max-width: 767px){
+  form h4::before {
+    height: 50px;
+    width: 75px;
+
+  }
+}
+
+
+.parsley-errors-list.filled {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+@media (max-width: 768px) {
+  #main article .single-title, body.archive .page-header .cat-title {
+    font-size: 29px;
+  }
+}
+     
+	.post-breadcrumb {
+	    display: -webkit-box;
+	    display: -ms-flexbox;
+	    display: flex;
+	    -webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	    justify-content: center;
+	    -ms-flex-line-pack: center;
+	    align-content: center;
+	    font-size: 16px;
+      font-family: "Heebo", sans-serif; }  
+      
+   
+	body.page-id-2694 ins.adsbygoogle {
+	  background: transparent !important;
+	  text-align: center; 
+	  height:0px !important;}
+
+
+.more-category-section {
+	    display: flex;
+	    flex-wrap: wrap;
+	    align-items: center;
+}
+.more-category-section > .category-item {
+	    width: 20%;
+      height: 25px;
+      margin: 5px 0; 
+
+      a {
+        color: $fontColor;
+      }
+
+      &::before {
+        display: inline-block;
+        font-family: dashicons;
+        position: static;
+        content: "\f345";
+        margin: 0 6px 0 0px;
+        vertical-align: top;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: red;
+        background: transparent;
+        height: auto;
+        width: auto;
+        top: auto;
+      }
+      @media (max-width: 768px) {
+        width: 50%;
+      }
+	}
+	
+#post-4749 .single-title{
+	display: none;
+}
+#post-2694 .single-title{
+	display: none;
+}
+
+.more-category-bullet{
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 24px;
+	font-size: 30px;
+	margin-bottom: 25px;	
+}	

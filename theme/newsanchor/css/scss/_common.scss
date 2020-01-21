@@ -1,0 +1,481 @@
+@import '_mixin';
+@import '_value';
+@import '_function';
+@import '_animation';
+
+html {
+    font-size: 10px;
+    font-family: $family;
+}
+
+.row {
+    overflow: visible;
+    
+    @include mediaWidth($screen-lg) {
+        margin: 0 !important;
+        overflow: hidden;
+    }
+
+    @media (min-width: 1025px ) and (max-width: 1320px) {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+#primary {
+    padding-right: 30px;
+
+    @media (max-width: $screen-lg) {
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    @include mediaWidth($screen-sm) {
+        padding-left: $mobile-padding;
+        padding-right: $mobile-padding;
+    }
+}
+
+#secondary {
+    border-left: 1px solid #ececec;
+    padding-left: 30px;
+    padding-right: 0;
+
+    @media (max-width: $screen-lg) {
+        display: none;
+    }
+
+    @include mediaWidth($screen-sm) {
+        padding-left: $mobile-padding;
+        padding-right: $mobile-padding;
+    }
+
+    .widget_text {
+        .widget-title {
+            display: none;
+        }
+    }
+}
+
+.container {
+    margin: 0 auto;
+
+    @media (max-width: 1199px) {
+        width: auto !important;
+    }
+
+    @media (max-width: 768px) {
+        width: auto;
+        overflow: hidden;
+    }
+}
+
+.page-content {
+    margin-top: 0;
+
+    @include mediaWidth($screen-sm) {
+        margin-top: 65px;
+    }
+}
+
+.content-wrapper {
+    background-color: #fff;
+    padding: 30px 0 60px !important;
+
+    @include mediaWidth($screen-sm) {
+        padding-top: 0 !important;
+    }
+}
+
+i.fab, i.fas {
+    font-family: 'fontawesome' !important;
+    font-style: normal !important;
+}
+
+ins.adsbygoogle {
+    /* Delete after confirm*/
+    display: none !important;
+    
+    /* --------------*/
+    background: transparent !important;
+    text-align:center;
+}
+
+.category-name {
+    @include fontSize($h12);
+    line-height: 1;
+    font-weight: 500;
+    color : #ea4343;
+    text-transform: uppercase;
+    display: inline-block;
+    
+    >span {
+        @include fontSize($h12);
+        line-height: 1;
+        font-weight: 500;
+        color : #ea4343;
+        text-transform: uppercase;
+    }
+}
+
+.category-link {
+    @include fontSize($h12);
+    font-weight: 500;
+    color : #ea4343;
+    text-transform: uppercase;
+    display: inline-block;
+
+    >a {
+        @include fontSize($h12);
+        font-weight: 500;
+        color : #ea4343;
+        text-transform: uppercase;
+    }
+}
+
+.capitalize {
+    text-transform: capitalize;
+
+    *{
+        text-transform: capitalize;
+    }
+}
+
+.uppercase {
+    text-transform: uppercase;
+
+    *{
+        text-transform: uppercase;
+    }
+}
+
+.hidden-text {
+    @include displayNone();
+}
+
+.published {
+    @include fontSize($h12);
+    color: $grey-mid;
+}
+
+.section-title {
+    @include fontSize(3rem);
+    color: $fontColor;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid $grey-light;
+    position: relative;
+    margin: 40px 0 15px;
+
+    @include mediaWidth($screen-sm) {
+        @include fontSize($h24, true);
+    }
+
+    span {
+        @include fontSize(3rem);
+
+        @include mediaWidth($screen-sm) {
+            @include fontSize($h24, true);
+        }
+
+        &:after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            display: block;
+            background: $primaryColor;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+    }
+}
+
+#post-4277, .ad-section , .adsbygoogle {
+    @include displayNone();
+}
+
+
+.divi-section-title {
+    .et_pb_text_inner {
+        @include fontSize(3rem);
+        line-height: inherit;
+        color: $fontColor;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-bottom: 1px solid $grey-light;
+        position: relative;
+        margin: 0 0 15px;
+
+        >p,span,h3,h4 {
+            display: inline;
+            @include fontSize(3rem);
+            border-bottom: 2px solid $primaryColor;
+            padding: 0 !important;
+        }
+    }
+}
+
+.bottom-header {
+    > .container {
+        padding: 0;
+    }
+}
+
+.breadcrumb {
+    display: block;
+    text-align: center;
+    padding-bottom: 15px;
+
+    a, span {
+        color: $fontColor;
+        @include fontSize($h14);
+        line-height: 1;
+        font-weight: 500;
+        display: inline;
+        position: relative;
+
+        &:after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: $primaryColor;
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+        }
+    }
+
+    .breadcrumb-span {
+        &:before {
+            content: "";
+            position: relative;
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background-color: #000;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.pagination {
+    text-align: center;
+
+    .nav-links {
+        @include displayflex();
+        position: relative;
+        justify-content: center;
+        align-items: center;
+
+        // &:before {
+        //     content: '';
+        //     width: 100%;
+        //     height: 1px;
+        //     display: inline;
+        //     position: absolute;
+        //     background-color: $grey-light;
+        //     top: 50%;
+        //     left: 0;
+        // }
+    }
+    .page-numbers {
+        position: relative;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        margin: 15px 10px;
+        z-index: 1;
+        @include mediaWidth($screen-sm) {
+            width: 25px;
+            height: 25px;
+            margin: 15px 6px;
+        }
+
+        >div {
+            position: relative;
+            z-index: 2;
+            @include fontSize($h14);
+            color: $fontColor;
+            font-weight: 500;
+            line-height: 30px;
+
+            @include mediaWidth($screen-sm) {
+                line-height: 25px;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid $grey-light;
+            background-color: $white;
+
+            @include mediaWidth($screen-sm) {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        &:hover {
+            >div {
+                color: $primaryColor;
+            }
+        }
+
+        &.dots {
+            @include mediaWidth($screen-sm) {
+                margin: 15px 0;
+            }
+
+            &:before {
+                border: 0;
+            }
+        }
+
+        &.current {
+            >div {
+                color: $primaryColor;
+            }  
+        }
+    }
+
+    .prev, .next {
+        display: none !important;
+    }
+}
+
+.facts-wrapper {
+    @include displaygrid(1,4,true);
+    margin: -15px -10px 0;
+
+    @include mediaWidth($screen-sm) {
+        @include displaygrid(1,2,true);
+    }
+
+    @include mediaWidth($screen-xs) {
+        @include displaygrid(1,1,true);
+    }
+
+    .article {
+        padding: 15px 10px;
+
+        .content {
+            margin: 0;
+
+            .thumbnail {
+                width: 100%;
+                height: 180px;
+                overflow: hidden;
+                display: block;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    -o-object-fit: cover;
+                    object-fit: cover;
+                }
+            }
+
+            .data {
+                display: block;
+
+                .article-meta {
+                    margin: 5px 0;
+
+                    .category-name {
+                        display: inline-block;
+                        @include fontSize($h12);
+
+                        >span {
+                            @include fontSize($h12);
+                        }
+                    }
+
+                    .published {
+                        display: inline-block;
+                        @include fontSize($h12);
+                        color: #7a7a7a;
+                        font-weight: 400;
+
+                        &:before {
+                            content: "";
+                            position: relative;
+                            display: inline-block;
+                            width: 4px;
+                            height: 4px;
+                            background-color: #424040;
+                            transform: rotate(45deg);
+                            vertical-align: middle;
+                            margin: 1px 2px 3px 3px;
+                        }
+                    }
+                }
+
+                .article-title {
+                    margin: 0;
+                    @include fontSize($h16);
+                    color: $fontColor;
+                    font-weight: 500;
+
+                    a {
+                        margin: 0;
+                        @include fontSize($h16);
+                        color: $fontColor;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.social-media {
+    .media_icon {
+        display: inline-block;
+
+        a {
+            display: inline-block;
+            text-align: center;
+            margin: 0 2px;
+
+            &.facebook {
+                background: #3B5998;
+            }
+            &.twitter {
+                background: #26A6D1;
+            }
+            &.youtube {
+                background: #C4302B;
+            }
+            &.instagram {
+                background: #DA4592;
+            }
+
+            .fab {
+                color: $white;
+            }
+        }
+    }
+}
+
+
+/* For wp admin bar */
+#wpadminbar {
+    #wp-admin-bar-top-secondary {
+        @include displayNone();
+    }
+}
+

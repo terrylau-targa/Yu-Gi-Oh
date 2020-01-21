@@ -1,0 +1,409 @@
+.page {
+    .page-title {
+        @include fontSize($h36);
+        color: $fontColor;
+        font-weight: 500;
+        margin: 0 !important;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    .content-container {
+        h2, h3, h4 {
+            font-weight: 500;
+            color: $fontColor;
+        }
+    
+        h2 {
+            @include fontSize($h24);
+        }
+    
+        h3 {
+            @include fontSize($h20);
+        }
+    
+        p {
+            @include fontSize($h16);
+            color: $fontColor;
+            font-weight: 400;
+            line-height: 1.5;
+    
+            >a {
+                color: $fontColor;
+                position: relative;
+                display: inline;
+        
+                &:after {
+                    content: '';
+                    display: inline;
+                    width: 100%;
+                    height: 2px;
+                    position: absolute;
+                    background-color: $primaryColor;
+                    left: 0;
+                    bottom: 0;
+                }
+        
+                &:hover {
+                    color: $primaryColor;
+                }
+            }
+        }
+    
+        blockquote {
+            display: inline-block;
+            background: none repeat scroll 0 0 #f8f8f8;
+            border-color: $primaryColor;
+            border-width: 0 0 0 3px;
+            border-style: solid;
+            line-height: 28px;
+            margin: 7px 0 25px;
+            padding: 18px 25px;
+    
+            @include mediaWidth($screen-sm) {
+                width: 100%;
+            }
+        }
+    
+        ol, ul {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            list-style: none;
+    
+            li {
+                @include fontSize($h18);
+                color: $fontColor;
+                line-height: 32px;
+                margin-bottom: 10px;
+                position: relative;
+            }
+        }
+    
+        ol {
+            list-style: none;
+    
+            li {
+                padding-left: 40px;
+    
+                .olli-content {
+                    position: absolute;
+                    left: 0;
+                    top: 4px;
+                    @include fontSize($h24);
+                    font-weight: 900;
+                    letter-spacing: -1px;
+                    line-height: 1;
+                    color: $primaryColor;
+                    text-align: right;
+                }
+            }
+        }
+    
+        ul {
+            li {
+                padding-left: 15px;
+    
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 10.5px;
+                    width: 8px;
+                    height: 8px;
+                    background: $primaryColor;
+                }
+            }
+        }
+    
+        .wp-caption-text {
+            @include fontSize($h12);
+            color: $grey-mid;
+            @include displayNone();
+        }
+    }
+
+    .et_pb_section {
+        padding: 0 !important;
+    }
+
+    .more-category {
+        .cat-title {
+            @include fontSize($h40);
+            color: $fontColor;
+            font-weight: 600;
+            text-align: center;
+            margin: 0;
+
+            @include mediaWidth($screen-xs) {
+                @include fontSize($h36);
+            }
+        }
+
+        .text-description {
+            @include fontSize($h16);
+            color: $fontColor;
+            font-weight: 400;
+            text-align: center;
+            margin: 5px 0 15px;
+        }
+
+        .category-wrapper {
+            @include displaygrid(1,4);
+            margin: 0 -10px;
+
+            @include mediaWidth($screen-sm) {
+                @include displaygrid(1,2);
+                grid-template: repeat(1, auto) / repeat(2, 50%);
+            }
+
+            @include mediaWidth($screen-xs) {
+                grid-template: repeat(1, auto) / repeat(1, auto);
+            }
+
+            .category-block {
+                text-align: center;
+                vertical-align: top;
+                padding: 10px;
+                @include transition(0.3s);
+            }
+
+            .block-inner {
+                padding: 0 0 25px;
+                height: 100%;
+                border: 1px solid $grey-light;
+                position: relative;
+            }
+
+            .cate-thrumb {
+                width: 100%;
+                height: 90px;
+                overflow: hidden;
+                @include displayflex();
+                align-items: center;
+                justify-content: center;
+
+                >img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .parent-category {
+                @include fontSize($h24);
+                color: $fontColor;
+                text-transform: uppercase;
+                margin: 25px auto 15px;
+                position: relative;
+                font-weight: 500;
+
+                @include mediaWidth($screen-sm) {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+
+                >a {
+                    @include fontSize($h24);
+                    color: $fontColor;
+                    text-transform: uppercase;
+                }
+
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 25px;
+                    height: 2px;
+                    background-color: $primaryColor;
+                    bottom: -15px;
+                    left: 50%;
+                    margin-left: -12.5px;
+                }
+            }
+
+            .child-wrapper {
+                padding: 20px 0;
+
+                @include mediaWidth($screen-sm) {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+
+                .child-category {
+                    @include fontSize($h16);
+                    text-transform: capitalize;
+                    padding: 5px 0;
+                }
+            }
+        }
+    }
+
+    .ourpicks-section {
+        .section-title {
+            margin-top: 80px;
+        }
+
+        .ad-section {
+            -ms-grid-column: 1;
+            grid-column-start: 1;
+            -ms-grid-column-span: 4;
+            grid-column-end: 4;
+            height: 300px;
+
+            @include mediaWidth($screen-sm) {
+                -ms-grid-column: 1;
+                grid-column-start: 1;
+                -ms-grid-column-span: 3;
+                grid-column-end: 3;
+            }
+        }
+
+    }
+
+    .you-may-like-section {
+
+        .ad-section {
+            -ms-grid-column: 1;
+            grid-column-start: 1;
+            -ms-grid-column-span: 4;
+            grid-column-end: 4;
+            height: 300px;
+
+            @include mediaWidth($screen-sm) {
+                -ms-grid-column: 1;
+                grid-column-start: 1;
+                -ms-grid-column-span: 3;
+                grid-column-end: 3;
+            }
+        }
+
+    }
+
+    .social-icon-wrapper {
+        >a {
+            display: inline-block;
+            height: 22px;
+            margin: 0 10px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            img {
+                width: auto;
+                height: 100%;
+            }
+
+            >.pinit-button {
+                @include displayNone('true');
+            }
+        }
+    }
+
+    form.wpcf7-form {
+        #input-name, #input-email, #input-subject, #input-message, #input-quiz {
+            width: 100%;
+                padding: 4px 8px;
+        }
+
+        >p {
+            margin: 0 -5px;
+            @include displayflex();
+            flex-wrap: wrap;
+
+            .wpcf7-form-control-wrap {
+                display: block;
+                padding: 5px;
+                @include flexBasis(50%);
+
+                @include mediaWidth($screen-sm) {
+                    @include flexBasis(100%);
+                }
+            }
+
+            .Subject, .Message {
+                @include flexBasis(100%);
+            }
+
+        }
+
+        .wpcf7-not-valid-tip {
+            @include fontSize($h12);
+            color: $primaryColor;
+            margin: 5px 0;
+        }
+        
+        .btn-submit {
+            @include flexBasis(100%);
+            text-align: left;
+
+            .quiz-801 {
+                display: inline-block;
+
+                @include mediaWidth($screen-sm) {
+                    display: block;
+                }
+
+                span.wpcf7-not-valid-tip {
+                    display: inline-block;
+
+                    @include mediaWidth($screen-sm) {
+                        display: block;
+                    }
+                }
+
+                label {
+                    vertical-align: middle;
+                    @include displayflex();
+                    align-items: center;
+
+                    .wpcf7-quiz-label {
+                        margin-right: 5px;
+                        @include flexBasis(100%);
+
+                        @include mediaWidth($screen-sm) {
+                            @include flexBasis(30%);
+                        }
+                    }
+
+                    #input-quiz {
+                        @include flexBasis(100%);
+
+                        @include mediaWidth($screen-sm) {
+                            @include flexBasis(70%);
+                        }
+                        
+                    }
+                }
+            }
+
+            .input-submit {
+                display: inline-block;
+                float: right;
+
+                @include mediaWidth($screen-sm) {
+                    display: block;
+                    float: none;
+                    width: 100%;
+                    margin-top: 15px;
+                }
+            }
+
+            .ajax-loader {
+                display: none;
+            }
+        }
+
+        div.wpcf7-response-output {
+            margin: 0 !important;
+            padding: 10px;
+            border: 0;
+            text-align: center;
+
+            @include mediaWidth($screen-sm) {
+                margin-top: 15px;
+            }
+        }
+    }
+}

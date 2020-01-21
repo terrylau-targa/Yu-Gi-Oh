@@ -1,0 +1,167 @@
+@import '_mixin';
+@import '_value';
+@import '_function';
+@import '_animation';
+
+$promotion-grey: #ececec;
+$label-blue: #185fc1;
+$price-btn: #0cac1f;
+
+.promote-wrapper {
+    margin: 30px 0 0;
+    
+    .promote-product {
+        @include displayflex();
+        justify-content: center;
+        align-items: flex-start;
+        border: 1px solid $promotion-grey;
+        position: relative;
+
+        .picks-btn {
+            padding: 10px;
+            color: $label-blue;
+            font-size: 20px;
+            background-color: $white;
+            border: 1px solid #524f4f;
+            position: absolute;
+            top: 50%;
+
+            &:hover, &:active {
+                border-color: $label-blue;
+                color: $label-blue;
+            }
+
+            &.disable {
+                border-color: #ccc;
+                color: #ccc;
+            }
+        }
+
+        #pre-picks {
+            left: -10px;
+        }
+
+        #next-picks {
+            right: -10px;
+        }
+    }
+
+    .item {
+        display: block;
+        @include flexBasis(33.3333%);
+        border: 0 solid $promotion-grey;
+        border-left: 1px;
+        text-align: center;
+        padding: 0 35px 30px;
+
+        @include mediaWidth($screen-sm) {
+            @include flexBasis(100%);
+            border: 0;
+        }
+
+        &:nth-of-type(0) {
+            border-left: 0px;
+        }
+
+        .promo-label {
+            text-align: center;
+            display: inline-block;
+            padding: 13px 40px 0;
+            margin: -10px 0 22px 0;
+            position: relative;
+            background-color: $label-blue;
+            text-transform: uppercase;
+            color: $white;
+            font-weight: 500;
+    
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                background-color: $label-blue;
+                width: 100%;
+                height: 36px;
+                border-radius: 0 0 50% 50%;
+                bottom: -14px;
+                left: 0;
+            }
+    
+            svg, p {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0;
+                position: relative;
+            }
+    
+            svg {
+                margin-right: 5px;
+                margin-top: -6px;
+            }
+        }
+
+        .product-image {
+            height: 190px;
+            overflow: hidden;
+            @include displayflex();
+            align-items: center;
+            justify-content: center;
+
+            img {
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    
+        .product-name {
+            @include fontSize(20px);
+            line-height: 20px;
+            min-height: 40px;
+            font-weight: 500;
+            margin: 20px 0 10px;
+            color: #2f3846;
+        }
+
+        .star {
+            color: #ffc000;
+            font-size: 20px;
+            line-height: 1;
+            margin-bottom: 20px;
+            
+            >i {
+                margin: 0 2px;
+                background-color: $white;
+            }
+        }
+    
+        .check-price {
+            display: inline-block;
+            width: 100%;
+            padding: 10px 15px;
+            text-align: center;
+            @include fontSize(16px);
+            position: relative;
+            color: $white;
+            background-color: $price-btn;
+    
+            .fa-arrow-right {
+                float: right;
+            }
+        }
+    }
+
+
+    section.post-footer {
+        border: 1px solid $promotion-grey;
+        @include displayflex();
+        justify-content: flex-start;
+        align-items: center;
+
+        .post-author {
+            flex: 1;
+        }
+
+        aside.social-media {
+            display: block;
+        }
+    }
+}

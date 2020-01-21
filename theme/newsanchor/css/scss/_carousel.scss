@@ -1,0 +1,205 @@
+@import '_mixin';
+@import '_value';
+@import '_function';
+@import '_animation';
+
+.roll-posts-carousel {
+    @media (max-width: 768px) {
+        padding: 0;
+        position: relative;
+    }
+
+    .owl-stage {
+        height: 100%;
+    }
+    
+    .owl-item {
+        background-color: $fontColor;
+        height: 100%;
+
+        >.item {
+            padding: 10px;
+            padding-bottom: 15px;
+        }
+    }
+
+    .owl-prev, .owl-next {
+        position: absolute;
+        color: $grey-mid;
+        // width: 40px;
+        // height: 40px;
+        width: auto;
+        height: auto;
+        line-height: 40px;
+        text-align: center;
+        top: 50%;
+        margin-top: -20px;
+        font-size: 0;
+        background: none !important;
+        // border: 1px solid $grey-mid;
+        @include displayflex();
+        align-items: center;
+        justify-content: center;
+
+        &:before {
+            content: "";
+            display: block;
+            // width: 12px;
+            // height: 12px;
+            width: 18px;
+            height: 18px;
+            border: 3px solid $grey-mid;
+            position: relative;
+        }
+
+        &:hover{
+
+            &:before {
+                border-color: $primaryColor;
+            }
+        }
+
+        @include mediaWidth(1199px) {
+            display: none;
+            visibility: hidden;
+        }
+    }
+
+
+    .owl-prev {
+        transform: rotate(45deg);
+        // left: -58px;
+        left: -30px;
+        display: flex !important;
+
+        >i {
+            transform: rotate(-45deg) translate(2px,2px);
+        }
+
+        &:before {
+            border-right: 0px;
+            border-top: 0px;
+            margin-left: 3px;
+            border-color: $grey-mid;
+            margin-bottom: 3px;
+        }
+    }
+
+    .owl-next {
+        transform: rotate(-45deg);
+        // right: -58px;
+        right: -30px;
+        display: flex !important;
+
+        >i {
+            transform: rotate(45deg) translate(2px,2px);
+        }
+
+        &:before {
+            border-left: 0;
+            border-top: 0;
+            border-color: $grey-mid;
+            margin-right: 3px;
+            margin-bottom: 3px;
+        }
+    }
+
+    .thumb-wrapper {
+        width: 100%;
+        height: 130px;
+        @include displayflex();
+        overflow: hidden;
+
+        a {
+            width: 100%;
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .content-text {
+        width: 100%;
+        padding: 10px 0;
+
+        .meta-wrapper {
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .carousel-category {
+            display: inline-block;
+            @include fontSize($h12);
+
+            .cat-links {
+                span {
+                    @include fontSize($h12);
+                    font-weight: 600;
+                    color : #ea4343;
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+        .carousel-date {
+            display: inline-block;
+            @include fontSize($h12);
+            color: $grey-mid;
+
+            @include mediaWidth(1199px) {
+                display: none;
+                visibility: hidden;
+            }
+
+            &:before {
+                content: "";
+                position: relative;
+                display: inline-block;
+                width: 4px;
+                height: 4px;
+                background-color: $grey-mid;
+                border-radius: 50%;
+                vertical-align: middle;
+                margin-left: 2px;
+                margin-right: 6px;
+            }
+        }
+
+        .carousel-title {
+            @include fontSize($h16);
+            text-align: center;
+
+            a {
+                @include fontSize($h16);
+                color: $white;
+                text-align: center;
+            }
+        }
+    }
+
+    .owl-controls {
+        .owl-dots {
+            position: absolute;
+            bottom: -3px;
+            background: #dc1c1c;
+            left: 0;
+            width: 0;
+            height: 3px;
+            display: none;
+            visibility: hidden;
+
+            @include mediaWidth($screen-sm) {
+                display: block;
+                visibility: visible;
+            }
+
+            span {
+                opacity: 0;
+                
+            }
+        }
+    }
+}
