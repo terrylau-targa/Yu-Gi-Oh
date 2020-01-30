@@ -4,8 +4,8 @@
 
     var width = $( window ).width();
 
-    var headerHeight = $("#header").height() + $("header.entry-header").height() + 45;
-    var scrollPosition;
+    var currentPicks = 0;
+    var totalPicks = $('.promote-product').find('.item').length;
 
     var options = {
         items: 1,
@@ -22,16 +22,16 @@
         info: true,
     }
 
-    var carousel = $(".image-carousel");
+    var carousel = $(".owl-carousel");
     carousel.owlCarousel(options);
 
-    var currentPicks = 0;
+    var currentPicks = 1;
     var totalPicks = $('.promote-product').find('.item').length;
 
     //Set start number of carousel
     $(".carousel-counter").each(function(){
-        var totalItem = $(this).next(".image-carousel").find('.owl-item').length;
-        console.log('1 of ' + totalItem);
+        var target = $(this).data("productid");
+        var totalItem = $('#product-' + target).find('.owl-item').length;
         $(this).html('1 of ' + totalItem);
     });
 
@@ -39,46 +39,38 @@
     carousel.on('changed.owl.carousel', function(event) {
         var totalItem = event.item.count;
         var currentItem = event.item.index + 1;
+        var target = $(this).attr('id').split("-");
 
-        console.log(currentItem + ' of ' + totalItem);
-        $(this).prev('.carousel-counter').html(currentItem + ' of ' + totalItem);
-    });
-
-    $('#content-btn').click(function(){
-        if ($(this).hasClass('close')) {
-            $(this).removeClass('close');
-            $(this).addClass('open');
-        } else {
-            $(this).removeClass('open');
-            $(this).addClass('close');
-        }
-
-        $('#contents-block').toogle();
+        console.log('.carousel-counter[data-productid="' + target[1] + '"] :' + currentItem + ' of ' + totalItem);
+        $('.carousel-counter[data-productid="' + target[1] + '"]').html(currentItem + ' of ' + totalItem);
     });
     
 
     function CheckWidth() {
-        if (width < 767) {
-            console.log(currentPicks);
-            $('.item').hide();
-            $('.item').eq(currentPicks).show();
-            productBtn();
+        if ($('.promote-product>.item').length) {
+            $('.code-block-7').remove();
             
-            if (currentPicks == 0) {
-                $('#pre-picks').hide();
-                $('#next-picks').show();
-            } else if (currentPicks == totalPicks-1) {
-                $('#pre-picks').show();
-                $('#next-picks').hide();
+            if (width < 767) {
+                $('.item').hide();
+                $('.item').eq(currentPicks).show();
+
+                if (currentPicks == 0) {
+                    $('#pre-picks').hide();
+                    $('#next-picks').show();
+                } else if (currentPicks == totalPicks-1) {
+                    $('#pre-picks').show();
+                    $('#next-picks').hide();
+                } else {
+                    $('#pre-picks').show();
+                    $('#next-picks').show();
+                }
             } else {
-                $('#pre-picks').show();
-                $('#next-picks').show();
+                $('.item').show();
+                $('#pre-picks').hide();
+                $('#next-picks').hide();
             }
         } else {
-            console.log();
-            $('.item').show();
-            $('#pre-picks').hide();
-            $('#next-picks').hide();
+            $('.promote-wrapper').remove();
         }
     }
 
@@ -86,38 +78,55 @@
         $('#pre-picks').click(function(){
             $('#next-picks').show();
             if (currentPicks > 0) {
-                currentPicks --;
+                currentPicks -= 1;
                 showPicks(currentPicks);
             }
 
             if (currentPicks == 0) {
                 $(this).hide();
             }
+            console.log("currentPicks = " + currentPicks);
         });
 
         $('#next-picks').click(function(){
             $('#pre-picks').show();
-            console.log(totalPicks);
-            if (currentPicks < totalPicks-1) {
-                currentPicks ++;
+            if (currentPicks < totalPicks) {
+                currentPicks += 1;
                 showPicks(currentPicks);
             }
 
             if (currentPicks == totalPicks-1) {
                 $(this).hide();
             }
+            console.log("currentPicks = " + currentPicks);
         });
     }
 
     function showPicks(index) {
-        console.log(currentPicks);
         $('.item').hide();
         $('.item').eq(index).show();
     }
 
+    function imageLabel() {
+        var imageHTML;
+        var imageLink;
+        var imageCaption;
+
+        $('.product-paragraph img').each(function() {
+            if ($(this).hasClass('product-gallery-image')) {
+                imageLink = $(this).parents('.product-paragraph').attr('data-link');
+                imageHTML = $(this).prop("outerHTML");
+                imageCaption = $(this).parent().find('figcaption').prop("outerHTML");
+
+                $(this).parent().html('<div class="image-wrapper">' + imageHTML + '<a href="' + imageLink +'"><div class="image-labels">Read More Reviews <i class="fas fa-arrow-right"></i></div></a></div>' + imageCaption);
+            }
+        });
+    }
+
     $(function() {
-        tocScrollTop();
         CheckWidth();
+        productBtn();
+        imageLabel();
     });
 
     $(window).resize(function() {
@@ -126,29 +135,5 @@
     });
 
 
-    $(window).scroll(function() {
-        scrollPosition = $(document).scrollTop();
-        if (scrollPosition > headerHeight) {
-            
-        } else {
-            
-        }
-    });
-
-    var tocScrollTop = function() {
-        //Add title of share button
-        var content_share = '<div class="share-title">Share this Fact: </div>' + $('.addtoany_content_bottom').html();
-        $('.addtoany_content_bottom').html(content_share);
-
-        $('a').click(function() {
-            var href = $(this).attr('href');
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $(href).offset().top -50
-            }, 300);
-        });
-    }
-
 
 })(jQuery);
-
-

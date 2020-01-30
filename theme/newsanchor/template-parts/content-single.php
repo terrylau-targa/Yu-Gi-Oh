@@ -4,308 +4,199 @@
  */
 ?>
 
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+    <div class="post-info">
+        <p class="post-date"></p>
+        <h1 class="post-title"><?php the_title(); ?></h1>
+    </div>
+    <div class="promote-wrapper">
+        <!-- If plugin exist -->
+        <?php if ( class_exists( 'ACF' ) ) : ?>
+        
+        <?php if (have_rows('product_name_and_content')) : ?>
 
-	<div class="entry-header">
-		
-		<?php 
-			$category = get_the_category();
-			$parent = get_ancestors($category[0]->term_id,'category');
+        <!-- Promote product -->
+        <div class="promote-product">
+            <div id="pre-picks" class="picks-btn" style="display: none;"><</div>
+            <!-- Check custom group -->
+            <?php 
+            while ( have_rows('product_name_and_content') ):
+                the_row();
 
-			if (empty($parent)) {
-				$parent[] = array($category[0]->term_id);
-			}
+                $picks = get_sub_field_object('ranking_label');
+                $picks_value = $picks['value'];
+                $picks_label = $picks['choices'][$picks_value];
 
-			$parent = array_pop($parent);
-			$parent = get_category($parent); 
+                // if product have ranking value
+                if ( $picks_value != null ) :
+                    $name = get_sub_field('product_name');
+                    $images = get_sub_field('product_image');
+                    $link = get_sub_field('product_link');
+                    $ranking = get_sub_field('ranking_stars');
 
-			$categoriesChild = get_categories(
-				array( 'parent' => $parent->term_id )
-			);
-				
-			if (!is_wp_error($parent)) {
-				// echo $parent->name;
-			} else {
-				echo $parent->get_error_message();
-			}
-		?>
-		<div class="breadcrumb">
-			<a href="/">Home</a>
-			<span class="breadcrumb-span"></span>
-			<?php 
-			if ( $parent && $parent->name != 'Uncategorized' ) {
-				?>
-				<a class="parent-cat" href="<?php echo get_category_link($parent->term_id); ?>"><?php echo $parent->name; ?></a>
-				<span class="breadcrumb-span"></span>
-				<a class="primary-cat" href="<?php echo get_category_link($category[0]->term_id); ?>"><?php echo $category[0]->name; ?></a>
-				<?php
-			} else {
-				?>
-				<a class="primary-cat" href="<?php echo get_category_link($category[0]->term_id); ?>"><?php echo $category[0]->name; ?></a>
-				<?php
-			}
-			?>
-		</div>
+                    //Display item HTML
+                    ?>
+                    <div class="item">
+                        <div class="promo-label">
+                            <svg width="25" class="svg-inline--fa fa-crown fa-w-20" role="img" viewBox="0 0 640 512"><path fill="currentColor" d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z"></path></svg>
+                            <p><?php echo $picks_label; ?></p>
+                        </div>
+                        <div class="product-image"><?php echo '<img src="' . esc_url($images[0]['sizes']['thumb-large']) . '" alt="' . esc_url($images[0]['alt']) . '" />'; ?></div>
+                        <h2 class="product-name"><?php echo $name; ?></p>
+                        <div class="star">
+                            <?php 
+                            for ($i = 0; $i < $ranking; $i++) :
+                                echo '<i class="fas fa-star"></i>';
+                            endfor;
+                            ?>
+                        </div>
+                        <a href="<?php echo $link; ?>">
+                            <div class="check-price">Check Latest price<i class="fas fa-arrow-right"></i></div>
+                        </a>
+                    </div>
+                    <?php
+                endif;
 
-		<?php 
-			if (!is_front_page()) {
-				the_title( '<h1 class="single-title">', '</h1>' ); 
-				//echo '<h1 class="single-title">'  . post_title_teaser() . '</h1>';
-			}
-		?>
+            endwhile;
+            ?>
+            <div id="next-picks" class="picks-btn" style="display: none;">></div>
+            
+            <?php endif; ?>
+        </div>
 
-		<?php
-		$fname = get_the_author_meta('user_firstname');
-		$lname = get_the_author_meta('user_lastname');
-		$dn = get_the_author_meta('display_name');
-		$full_name = '';
+        <!-- End if plugin -->
+        <?php endif; ?>
 
-		if( ! empty($fname) ){
-			$full_name = $fname;
-		} elseif ( ! empty($lname) ){
-			$full_name = $lname;
-		} elseif( empty($lname) && empty($fname) ) {
-			$full_name = $dn;
-		} else {
-			//both first name and last name are present
-			$full_name = "{$fname} {$lname}";
-		}
-		$authorID = get_the_author_meta( 'ID' );
-		?>
-		
-		<div class="author-section-post">
-			
-			<div class="author-icon">
-			<img src="<?php echo get_avatar_url(get_the_author_meta('ID')); ?> " class="avatar" alt="<?php echo get_the_author_meta( 'display_name' ); ?>" />
-			</div>
-			<div class="author-name-date">
-				<div class="author-name">
-					<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php echo $full_name;?></a>
-				</div>
-				<div class="date"><p><?php echo get_the_date('d M Y'); ?></p></div>
-			</div>
-		</div>
+        <section class="post-footer">
+            <p class="post-author"><?php the_author(); ?> </p>
+            <aside class="social-media"><?php echo social_platform(); ?></aside>
+        </section>
+    </div>
 
-		<?php if (get_theme_mod('hide_meta_single') != 1 ) : ?>
-		<!-- <div class="meta-post">
-			<?php newsanchor_posted_on(); ?>
-		</div> -->
-		<?php endif; ?>		
-	</div><!-- .entry-header -->
+    <section class="post-contents">
+        <div id="content-btn" class="close">Show Contents<i class="fas fa-chevron-down"></i></div>
+        <div class="contents-block" id="contents-block">
+            <div>Contents</div>
+            <div class="contents-wrapper">
+                <ul>
+                    <!-- Check custom group -->
+                    <?php
+                    $counter = 0;
+                    while ( have_rows('product_name_and_content') ):
+                        the_row();
+                        $name = get_sub_field('product_name');
+                        echo '<li><span>' . $counter .'</span><span class="product-name">' . $name . '</span></li>';
+                        $counter++;
+                    endwhile;
+                ?>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-	<div class="row">
-		<div class="entry-content col-md-9" id="contents">
-			
-			<?php if (!wp_is_mobile()) : ?>
-			<div class="share-floating">
-				<div class="media_icon">
-					<?php social_media_white(); ?>
-				</div>
-			</div>
-			<?php endif; ?>
+    <div class="entry-content">
+    <?php if ( class_exists( 'ACF' ) ) :
+    $counter = 1;
 
-			<div class="feature-img">
-				<?php 
-					if(has_post_thumbnail()){
-						the_post_thumbnail(); 
-					}
-				?>
-			</div>
+    if ( have_rows('product_name_and_content') || have_rows('header_and_content') ) :
+        while ( have_rows('product_name_and_content') || have_rows('header_and_content') ) :
+            the_row();
+            // Get the row layout.
+            $layout = get_row_layout();
 
-			<?php the_content(); ?>
-			<?php
-				wp_link_pages( array(
-					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'newsanchor' ),
-					'after'  => '</div>',
-				) );
-			?>
+            //Check if product row
+            if ( $layout == 'product_detail' ):
+                $name = get_sub_field('product_name');
+                $images = get_sub_field('product_image');
+                $link = get_sub_field('product_link');
+                $pro_contents = get_sub_field('product_content');
+                ?>
 
-			<div class="content-wrap-flex">
-		
-				<?php if ( class_exists( 'ACF' ) ) {
+                <div class="product-paragraph" data-link="<?php echo $link ?>">
+                    <div class="product-header">
+                        <div class="number"><?php echo $counter; ?></div>
+                        <h2 class="product-name"><?php echo $name; ?></h2>
 
-					// check if the flexible content field has rows of data
-					if( have_rows('title_&_content_draggable') ):
-						?>
-						<div id="toc">
-							<div class="toc-nav">
-								<div class="toc-title">Table of Contents</div>
-								<div class="toc-toggle"></div>
-							</div>
-							<div class="contents-menu" id="toc_item">
-								<?php
-									$toc_item = 0;
-									while ( have_rows('title_&_content_draggable') ) : the_row();
+                        <?php if ( $images ): ?>
+                        <span class="carousel-counter" data-productid="<?php echo $counter; ?>"></span>
+                        <?php endif; ?>
+                    </div>
+                    <?php
 
-										if( get_row_layout() == 'title_&_description'):
-											if (get_sub_field('title') != "") :
-												$toc_item += 1;
-												if ($toc_item < 10) :
-												?>
-													<div class="item">
-														<div class="title-link" data-title="<?php echo $toc_item; ?>">
-															<span>0<?php echo $toc_item; ?></span>
-															<?php echo get_sub_field('title'); ?>
-														</div>
-													</div>
-												<?php
-												else :
-												?>
-													<div class="item">
-														<div class="title-link" data-title="<?php echo $toc_item; ?>">
-															<span><?php echo $toc_item; ?></span>
-															<?php echo get_sub_field('title'); ?>
-														</div>
-													</div>
-												<?php
-												endif;
-											endif;
-										endif;
+                    $picks = get_sub_field_object('promotion');
+                    $picks_value = $picks['value'];
+                    $picks_label = $picks['choices'][$picks_value];
 
-									endwhile;
-								?>
-							</div>
-						</div>
-						<?php
-						$title_count = 0;
+                    if ( $images ):
+                        echo '<div class="product-images">';
+                                    
+                            // if product have promotion value
+                            if ( $picks_value != null ) :
+                                //Display item HTML
+                                ?>
+                                <div class="promo-label">
+                                    <svg width="25" class="svg-inline--fa fa-crown fa-w-20" role="img" viewBox="0 0 640 512">
+                                        <path fill="currentColor"
+                                            d="M528 448H112c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm64-320c-26.5 0-48 21.5-48 48 0 7.1 1.6 13.7 4.4 19.8L476 239.2c-15.4 9.2-35.3 4-44.2-11.6L350.3 85C361 76.2 368 63 368 48c0-26.5-21.5-48-48-48s-48 21.5-48 48c0 15 7 28.2 17.7 37l-81.5 142.6c-8.9 15.6-28.9 20.8-44.2 11.6l-72.3-43.4c2.7-6 4.4-12.7 4.4-19.8 0-26.5-21.5-48-48-48S0 149.5 0 176s21.5 48 48 48c2.6 0 5.2-.4 7.7-.8L128 416h384l72.3-192.8c2.5.4 5.1.8 7.7.8 26.5 0 48-21.5 48-48s-21.5-48-48-48z">
+                                        </path>
+                                    </svg>
+                                    <p><?php echo $picks_label; ?></p>
+                                </div>
+                                <?php
+                            endif;
 
-						// loop through the rows of data
-						while ( have_rows('title_&_content_draggable') ) : the_row();
+                            echo '<div class="filter-mask"><a href="' . $link .'"><div>See More</div></a></div>';
 
-							if( get_row_layout() == 'title_&_description' ):
-								$title_count += 1; ?>
-								<div class="single-title-desc-wrap">
-									<h2 class='content-title' id='title-<?php echo $title_count; ?>'><?php echo the_sub_field('title'); ?></h2>
-									
-									<?php
-										/* filter unexpected string */
-										$arr = array(
-											'<img id="hzDownscaled" style="position: absolute; top: -10000px;" />' => "",
-											"<img id=\"hzDownscaled\" style=\"position: absolute; top: -10000px;\" />" => '',
-										);
-										
-										$editorStr = strtr(get_sub_field('editor'),$arr) ;
+                            echo '<div class="owl-carousel product-carousel" id="product-' . $counter .'">';
+                            foreach ( $images as $image ) :
+                                echo '<div class="items">';
+                                    echo '<img src="' . esc_url($image['sizes']['product-preview']) . '" class="product-gallery-image" alt="' . esc_url($image['alt']) . '" />';
+                                echo '</div>';
+                            endforeach;
+                            echo '</div>';
+                        echo '</div>';
+                    endif;
 
-										echo $editorStr;
+                    echo '<div class="check-price-wrapper"><a href="' .$link .'"><div class="check-price">Check Latest price<i class="fas fa-arrow-right"></i></div></a></div>';
 
-									?>
-									<?php //the_sub_field('editor'); ?>
+                    if ( $pro_contents ) :
+                        while ( have_rows('product_content') ) :
+                            the_row();
+                            $title = get_sub_field('product_content_title');
+                            $content = get_sub_field('product_content_text');
+                                    
+                            if ( $title != '') :
+                                echo '<h3>' . $title . '</h3>';
+                            endif;
+                            echo $content;
+                        endwhile;
+                    endif;
 
-								</div>
+                ?>
+                </div>
 
-							<?php elseif( get_row_layout() == 'video' ):  ?>
-								<div class="single-video-wrap">
-									<iframe width="420" height="315" src="https://www.youtube.com/embed/<?php echo the_sub_field('youtube_id'); ?>"> </iframe>
-								</div>
-							<?php elseif( get_row_layout() == 'tabs' ): 
+                <?php
+                $counter++;
 
-								if( have_rows('tab_article') ):
+            //Check if content row
+            elseif ( $layout == 'header_and_content' ) :
+                $title = get_sub_field('heading');
+                $content = get_sub_field('paragraph');
 
-									?>
-									<div class="tabs"><div class="tabs-nav">
-									<?php
-									$count = 0;
-									// loop through the rows of data
-									while ( have_rows('tab_article') ) : the_row();
-										$count+=1;
-										// display a sub field value
-										?>
-											<div class="tabs-link" data-tab="tab-<?php echo $count; ?>">
-												<div class="tab-item" id="tab-item">
-													<div><?php echo the_sub_field('title_tab'); ?></div>
-												</div>
-											</div>
-										<?php
-					
-									endwhile;
-					
-									?></div><div class="tabs-stage"><?php
-					
-									$count2 = 0;
-									while ( have_rows('tab_article') ) : the_row();
-										$count2+=1;
-										// display a sub field value
-										?>
-										<div id="tab-<?php echo $count2; ?>">
-											<?php
-											$editorStr = get_sub_field('content_tab');
-												
-											$editorStr = preg_replace('/(<img src="https:\/\/web.archive.org\/[^>]+\/>)/', '', $editorStr);
-											$editorStr = preg_replace('/(<img class="no-display appear" src="https:\/\/old.facts.net\/[^>]+\/>)/', '', $editorStr);	
-		
-											echo $editorStr;
-											?>
-									
-											<?php //echo the_sub_field('content_tab'); ?>
-										</div>
-										<?php
-					
-									endwhile;
-					
-									?></div></div>
-		
-									<?php
+                if ( $title != '') :
+                    echo '<h2>' . $title . '</h2>';
+                endif;
+                echo $content;
+            endif;
+                    
+        endwhile;
 
-									
-					
-								else :
-					
-								// no rows found
-					
-								endif;
+        the_content();
 
-							endif;
-
-						endwhile;
-
-					else :
-
-						// no layouts found
-
-					endif;
-					}
-				?>
-			</div>
-			<div class="share-action">
-				<p>Share this Fact: </p>
-				<div class="media_icon">
-					<?php social_media_white(); ?>
-				</div>
-			</div>
-			
-			<?php echo do_shortcode( '[adinserter name="After content"]' ); ?>
-
-			<div class="view-comment" id="view_comment">View Comment</div>
-
-			<?php
-				// If comments are open or we have at least one comment, load up the comment template
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
-			?>
-
-			<?php 
-			//the_post_navigation(); 
-			$next_post_url = get_permalink( get_adjacent_post(false,'',false)->ID );
-			$previous_post_url = get_permalink( get_adjacent_post(false,'',true)->ID );	
-			?>
-			<div class="next-prev">
-				<span class="prev">
-					<a href="<?php echo $previous_post_url; ?>">Previous</a>
-				</span>
-				<span class="line"></span>
-				<span class="next">
-					<a href="<?php echo $next_post_url; ?>">Next</a>
-				</span>
-			</div>
-		</div><!-- .entry-content -->
-		<aside class="content-sidebar col-md-3">
-			<?php 
-				// related_post(); 
-				// echo do_shortcode('[mailpoet_form id="1"]');
-				 echo do_shortcode('[wpb_most_commented]'); 
-			?>
-		</aside>
-	</div>
-
+    else :
+        the_content();
+    endif;
+endif; ?>
+    </div>
 </article><!-- #post-## -->
